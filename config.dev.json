@@ -1,0 +1,6 @@
+{
+  "OPENAI_API_KEY": "your api key",
+  "PROXY_URL": "You can start service behind a proxy",
+  "BASE_URL": "Your base url to Override openai api request base url(optional)",
+  "auto_pass": true
+}
