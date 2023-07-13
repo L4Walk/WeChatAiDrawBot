@@ -1,7 +1,6 @@
 package ChatGPT
 
 import (
-	"WeChatAiDrawBot/config"
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
@@ -9,7 +8,12 @@ import (
 	"net/http"
 )
 
-const BASEURL = "https://api.openai.com/v1/"
+// const BASEURL = "https://api.openai.com/v1/"
+// const BASEURL = "https://apiproxy.chuheng.tech/proxy/https://api.openai.com/v1/chat/completions" //cloudflare反代
+// const BASEURL = "http://proxy-api.chuheng.tech/proxy/api.openai.com/v1/" // vercel反代
+const BASEURL = "https://openai.api2d.net/v1/chat/completions" //api2d接口
+
+//var BASEURL = config.LoadConfig().BASE_URL
 
 // ChatGPTResponseBody 请求体
 type ChatGPTResponseBody struct {
@@ -42,7 +46,7 @@ type ChatGPTRequestBody struct {
 // -d '{"model": "text-davinci-003", "prompt": "give me good song", "temperature": 0, "max_tokens": 7}'
 func Completions(msg string) (string, error) {
 	requestBody := ChatGPTRequestBody{
-		Model:            "text-davinci-003",
+		Model:            "gpt-3.5-turbo",
 		Prompt:           msg,
 		MaxTokens:        2048,
 		Temperature:      0.7,
@@ -56,14 +60,14 @@ func Completions(msg string) (string, error) {
 		return "", err
 	}
 	log.Printf("request ChatGPT json string : %v", string(requestData))
-	req, err := http.NewRequest("POST", BASEURL+"completions", bytes.NewBuffer(requestData))
+	req, err := http.NewRequest("POST", BASEURL, bytes.NewBuffer(requestData))
 	if err != nil {
 		return "", err
 	}
 
-	apiKey := config.LoadConfig().OPENAI_API_KEY
+	//apiKey := config.LoadConfig().OPENAI_API_KEY
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+apiKey)
+	req.Header.Set("Authorization", "Bearer "+"fk200248-aQOaMhfKtRxkAEYIc9VNzbkMN3HOtPWV")
 	client := &http.Client{}
 	response, err := client.Do(req)
 	if err != nil {

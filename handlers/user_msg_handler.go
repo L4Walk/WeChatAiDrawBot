@@ -42,6 +42,7 @@ func (g *UserMessageHandler) ReplyText(msg *openwechat.Message) error {
 		return err
 	}
 	if reply == "" {
+		msg.ReplyText("出错啦！")
 		return nil
 	}
 

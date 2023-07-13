@@ -55,5 +55,8 @@ func LoadConfig() *Configuration {
 			config.AutoPass = true
 		}
 	})
+
+	//fmt.Print(config.OPENAI_API_KEY)
+	//fmt.Print(config.BASE_URL)
 	return config
 }
