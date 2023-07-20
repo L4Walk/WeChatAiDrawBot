@@ -74,6 +74,7 @@ type Message struct {
 // 模型类型
 type Model string
 
+// 模型列表
 const (
 	GPT35Turbo        Model = "gpt-3.5-turbo"
 	GPT35Turbo0301    Model = "gpt-3.5-turbo-0301"

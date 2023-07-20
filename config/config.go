@@ -23,6 +23,9 @@ type Configuration struct {
 
 	// 自动通过好友
 	AutoPass bool `json:"auto_pass"`
+
+	// 数据库连接信息
+	MYSQL_CONNECT_STRING string `json:"MYSQL_CONNECT_STRING"`
 }
 
 var config *Configuration
