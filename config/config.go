@@ -18,7 +18,8 @@ type Configuration struct {
 	// Override openai api request base url. (optional)
 	// Default: https://api.openai.com
 	// Examples: http://your-openai-proxy.com
-	BASE_URL string `json:"BASE_URL"`
+	BASE_URL    string `json:"BASE_URL"`
+	CHATGPT_URL string `json:"CHATGPT_URL"`
 
 	// 自动通过好友
 	AutoPass bool `json:"auto_pass"`
