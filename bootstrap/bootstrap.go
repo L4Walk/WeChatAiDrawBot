@@ -8,19 +8,20 @@ import (
 	"github.com/eatmoreapple/openwechat"
 	"go.uber.org/zap"
 	"log"
-	"os"
 )
+
+var Logger *zap.Logger
+
+func LogInit() {
+	Logger = Log.GetLogger()
+}
 
 func DatabaseInit() {
 	// 连接数据库
 	db, err := Database.OpenDBConnetction(config.LoadConfig().MYSQL_CONNECT_STRING)
 
 	if err != nil {
-		//fmt.Println("Error connecting to the database: ", err)
-		//log.Fatalf("Error connecting to the database: %v", err)
-		//Log.Error.Fatalln("Error connecting to the database: ", err)
-		Log.Logger.Println("Error connecting to the database: ", zap.Error(err))
-		os.Exit(0)
+		Logger.Fatal("Error connecting to the database: ", zap.Error(err))
 	}
 
 	// 确保数据库能断开连接
@@ -29,21 +30,15 @@ func DatabaseInit() {
 	// 测试连接是否成功
 	err = db.Ping()
 	if err != nil {
-		//fmt.Println("Error pinging the database:", err)
-		//Log.Error.Fatalf("Error connecting to the database: %v", err)
-		Log.Logger.Println("Error connecting to the database: ", zap.Error(err))
-		os.Exit(0)
-
+		Logger.Fatal("Error connecting to the database: ", zap.Error(err))
 	}
 
-	//fmt.Println("Connected to the database successfully!")
-	Log.Info.Println("Connected to the database successfully!")
-	//Log.Logger.Info.p("Connected to the database successfully!")
+	Log.Logger.Info("Connected to the database successfully!")
 }
 
 func Run() {
 	// 连接日志
-	Log.LogInit()
+	LogInit()
 
 	// 连接数据库
 	DatabaseInit()
